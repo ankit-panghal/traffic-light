@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 
-
 const config = {
   red: {
     id: 1,
@@ -24,17 +23,14 @@ const App = () => {
   const [currentDuration, setCurrentDuration] = useState(config['red'].duration);
 
   useEffect(() => {
-    let timerId: number | undefined;
     if (currentDuration <= 0) {
-      clearInterval(timerId);
       setCurrentActiveLight(config[currentActiveLight].next as light);
       setCurrentDuration(config[config[currentActiveLight].next as light].duration);
     } else {
-      timerId = setInterval(() => {
+       setTimeout(() => {
         setCurrentDuration((prevDuration) => prevDuration - 1000);
       }, 1000);
     }
-    return () => clearInterval(timerId);
   }, [currentDuration, currentActiveLight]);
 
   return (
